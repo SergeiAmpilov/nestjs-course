@@ -1,10 +1,13 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post } from '@nestjs/common';
 import { TopPageModel } from './top-page.model/top-page.model';
 import { FindTopPageDto } from './dto/find-top-page.dto';
+import { ConfigService } from '@nestjs/config';
 
 
 @Controller('top-page')
 export class TopPageController {
+
+  constructor( private readonly configService: ConfigService ) {}
 
   @Post('create')
   async create(
@@ -17,6 +20,10 @@ export class TopPageController {
   async get(
     @Param('id') id: string
   ) {
+
+    console.log(
+      this.configService.get('TEST')
+    );
 
   }
 
