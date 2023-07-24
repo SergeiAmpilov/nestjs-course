@@ -11,7 +11,6 @@ import { AuthService } from './auth.service';
       {
         name: AuthModel.name,
         schema: AuthSchema
-
       },
     ]),
   ],

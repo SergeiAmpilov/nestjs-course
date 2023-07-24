@@ -1,17 +1,23 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { HydratedDocument } from "mongoose";
+import { Document, HydratedDocument, Schema as MSchema } from "mongoose";
 
 
-@Schema()
-export class AuthModel {
+@Schema({
+  timestamps: true,
+})
+export class AuthModel extends Document {
 
-  @Prop({ required: true })
+  @Prop({ 
+    required: true,
+    type: MSchema.Types.String,
+    unique: true,
+  })
   email: string;
 
-  @Prop()
+  @Prop({ type: MSchema.Types.String})
   passwordHash: string;
+
 }
 
 export const AuthSchema = SchemaFactory.createForClass(AuthModel);
 export type AuthDocument = HydratedDocument<AuthModel>;
-

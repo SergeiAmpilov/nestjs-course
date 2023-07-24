@@ -8,6 +8,11 @@ export class AuthService {
   constructor(
     @InjectModel(AuthModel.name) private readonly authModel: Model<AuthDocument>
   ) {
+    const a = this.authModel.findOne({});
+
+
+    // (await this.authModel.findOne().exec())
+    
     
   }
 }
