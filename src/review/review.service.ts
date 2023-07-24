@@ -28,6 +28,16 @@ export class ReviewService {
     }).exec();
   }
 
+  async deleteByProductId(productId: string): Promise<void> {
+    const reviewList = await this.reviewModel.find({
+      productId: new Types.ObjectId(productId)
+    }).exec();
+
+
+    reviewList.forEach((review) => {
+      this.reviewModel.findByIdAndDelete(review.id).exec();
+    })
+  }
 
 
 }
