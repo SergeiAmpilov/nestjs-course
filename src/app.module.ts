@@ -12,7 +12,7 @@ import { UsersModule } from './users/users.module';
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    MongooseModule.forRoot('mongodb://localhost:27017/nestcourse'),
+    MongooseModule.forRoot('mongodb://0.0.0.0:27017/nestcourse'),
     AuthModule, 
     TopPageModule, 
     ProductModule, 
