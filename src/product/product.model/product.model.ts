@@ -1,7 +1,8 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, HydratedDocument, Schema as MSchema } from "mongoose";
 
-class ProductCharacteristic {
+@Schema()
+export class ProductCharacteristic {
 
   @Prop()
   name: string;
@@ -10,7 +11,7 @@ class ProductCharacteristic {
   value: string;
 }
 
-const ProductCharacteristicSchema = SchemaFactory.createForClass(ProductCharacteristic);
+export const ProductCharacteristicSchema = SchemaFactory.createForClass(ProductCharacteristic);
 
 
 
