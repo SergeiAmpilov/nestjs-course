@@ -19,7 +19,7 @@ const ProductCharacteristicSchema = SchemaFactory.createForClass(ProductCharacte
 })
 export class ProductModel extends Document {
 
-  _id: string;
+  // _id: string;
 
   @Prop({
     type: MSchema.Types.String,
