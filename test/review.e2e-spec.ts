@@ -4,8 +4,6 @@ import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { CreateReviewDto } from 'src/review/dto/create-review.dto';
 import { Types } from 'mongoose';
-import { ProductModule } from 'src/product/product.module';
-import { ReviewModule } from 'src/review/review.module';
 import { disconnect } from 'process';
 
 const productId = new Types.ObjectId().toHexString();
@@ -41,6 +39,12 @@ describe('AppController (e2e)', () => {
         expect(createdId).toBeDefined();
         done();
       });      
+  });
+
+  it('/review/:id (DELETE)', () => {
+    return request(app.getHttpServer())
+      .delete('/review/' + createdId)
+      .expect(200)
   });
 
   afterAll(() => {
