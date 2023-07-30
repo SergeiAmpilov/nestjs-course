@@ -31,7 +31,7 @@ describe('AppController (e2e)', () => {
 
   it('/review/create (POST)', async (done) => {
     return request(app.getHttpServer())
-      .post('/review/create')
+      .post('/review/create/')
       .send({})
       .expect(201)
       .then(({ body }: request.Response) => {
@@ -39,6 +39,16 @@ describe('AppController (e2e)', () => {
         expect(createdId).toBeDefined();
         done();
       });      
+  });
+
+  it('/review/byProduct/:productId (GET)', async (done) => {
+    return request(app.getHttpServer())
+            .get('review/byProduct/' + productId)
+            .expect(200)
+            .then(({ body }: request.Response) => {
+              expect(body.length).toBe(1);
+              done();
+            });
   });
 
   it('/review/:id (DELETE)', () => {
