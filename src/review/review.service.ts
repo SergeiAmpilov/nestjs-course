@@ -11,7 +11,6 @@ export class ReviewService {
     @InjectModel(ReviewModel.name) private readonly reviewModel: Model<ReviewDocument>
   ) { }
 
-
   async create(dto: CreateReviewDto): Promise<ReviewDocument> {
     const demp =  this.reviewModel.create(dto);
     return this.reviewModel.create(dto);
@@ -33,6 +32,5 @@ export class ReviewService {
       productId: new Types.ObjectId(productId)
     }).exec();
   }
-
 
 }
