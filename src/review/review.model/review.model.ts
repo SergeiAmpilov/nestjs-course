@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document, HydratedDocument, Schema as MSchema, Types } from "mongoose";
-import { ProductModel } from "src/product/product.model/product.model";
+import { ProductModel } from "../../../src/product/product.model/product.model";
+// import { ProductModel } from "src/product/product.model/product.model";
 
 @Schema({
   timestamps: true,
