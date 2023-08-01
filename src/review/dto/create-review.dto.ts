@@ -15,6 +15,6 @@ export class CreateReviewDto {
   @Min(1, { message: 'Рейтинг должен быть не менее 1'})
   rating: number;
 
-  @IsString()
-  productId: string;
+  // @IsString()
+  // productId: string;
 }

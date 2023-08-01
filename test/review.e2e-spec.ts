@@ -13,7 +13,6 @@ const testDto: CreateReviewDto = {
   title: 'Заголовок',
   description: 'Тестовое описание',
   rating: 5,
-  productId,
 }
 
 describe('AppController (e2e)', () => {
