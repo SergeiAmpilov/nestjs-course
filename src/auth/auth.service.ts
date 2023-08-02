@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AuthDocument, AuthModel } from './auth.model/auth.model';
+import { UserDocument, UserModel } from './user.model/user.model';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectModel(AuthModel.name) private readonly authModel: Model<AuthDocument>
+    @InjectModel(UserModel.name) private readonly userModel: Model<UserDocument>
   ) {
-    const a = this.authModel.findOne({});
+    const a = this.userModel.findOne({});
 
 
     // (await this.authModel.findOne().exec())

@@ -5,7 +5,7 @@ import { Document, HydratedDocument, Schema as MSchema } from "mongoose";
 @Schema({
   timestamps: true,
 })
-export class AuthModel extends Document {
+export class UserModel extends Document {
 
   @Prop({ 
     required: true,
@@ -19,5 +19,5 @@ export class AuthModel extends Document {
 
 }
 
-export const AuthSchema = SchemaFactory.createForClass(AuthModel);
-export type AuthDocument = HydratedDocument<AuthModel>;
+export const UserSchema = SchemaFactory.createForClass(UserModel);
+export type UserDocument = HydratedDocument<UserModel>;
