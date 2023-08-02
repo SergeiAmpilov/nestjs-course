@@ -8,18 +8,14 @@ import { REVIEW_NOT_FOUND } from '../src/review/review.constants';
 import { AuthDto } from 'src/auth/dto/auth.dto';
 import { USER_NOT_FOUND_ERROR, WRONG_PASSWORD_ERROR } from 'src/auth/auth.constants';
 
-const productId = new Types.ObjectId().toHexString();
-
 const loginDto: AuthDto = {
   login: 'ampilov@list.ru',
   password: '123456'
 }
 
-describe('AppController (e2e)', () => {
+describe('AuthController (e2e)', () => {
   let app: INestApplication;
-  let createdId: string;
-  let token: string;
-
+  
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -31,8 +27,7 @@ describe('AppController (e2e)', () => {
     
   });
 
-  /* */
-
+  
   it('/auth/login (POST) - success', async () => {
     return request(app.getHttpServer())
       .post('/auth/login/')
@@ -45,7 +40,7 @@ describe('AppController (e2e)', () => {
   });
 
 
-  it('/auth/login (POST) - fail', async () => {
+  it('/auth/login (POST) - fail email', async () => {
     return request(app.getHttpServer())
       .post('/auth/login/')
       .send({
@@ -59,7 +54,7 @@ describe('AppController (e2e)', () => {
       });
   });
 
-  it('/auth/login (POST) - fail', async () => {
+  it('/auth/login (POST) - fail password', async () => {
     return request(app.getHttpServer())
       .post('/auth/login/')
       .send({
