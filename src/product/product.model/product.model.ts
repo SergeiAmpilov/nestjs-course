@@ -40,7 +40,7 @@ export class ProductModel extends Document {
   @Prop({
     type: MSchema.Types.Number,
   })
-  oldPrice: number;
+  oldPrice?: number;
 
   @Prop({
     type: MSchema.Types.Number,
