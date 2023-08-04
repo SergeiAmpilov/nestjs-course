@@ -9,7 +9,6 @@ import { getJwtConfig } from './configs/jwt.config';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
-
 @Module({
   imports: [
     MongooseModule.forFeature([
