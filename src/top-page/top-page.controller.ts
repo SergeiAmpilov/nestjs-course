@@ -57,6 +57,13 @@ export class TopPageController {
     @Body() dto: TopPageModel
   ) {
 
+    const updatedTopPage = await this.topPageService.update(id, dto);
+    if (!updatedTopPage) {
+      throw new NotFoundException(TOP_PAGE_NOT_FOUND_BY_ID)
+    }
+
+    return updatedTopPage;
+
   }
 
   @HttpCode(200)
@@ -64,6 +71,8 @@ export class TopPageController {
   async find(
     @Body() dto: FindTopPageDto
   ) {
+
+    return this.topPageService.findByFilter(dto);
 
   }
 
