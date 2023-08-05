@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TopPageModel } from './top-page.model/top-page.model';
 import { FindTopPageDto } from './dto/find-top-page.dto';
 import { ConfigService } from '@nestjs/config';
 import { TopPageService } from './top-page.service';
 import { TOP_PAGE_NOT_FOUND_BY_ID } from './top-page.constants';
+import { IdValifationPipe } from 'src/pipes/id-validation.pipes';
 
 
 @Controller('top-page')
@@ -25,7 +26,7 @@ export class TopPageController {
 
   @Get(':id')
   async get(
-    @Param('id') id: string
+    @Param('id', IdValifationPipe) id: string
   ) {
 
     const topPage = await this.topPageService.findById(id);
@@ -40,7 +41,7 @@ export class TopPageController {
 
   @Delete(':id')
   async delete(
-    @Param('id') id: string
+    @Param('id', IdValifationPipe) id: string
   ) {
 
     const topPage = await this.topPageService.delete(id);
@@ -53,7 +54,7 @@ export class TopPageController {
 
   @Patch(':id')
   async patch(
-    @Param('id') id: string,
+    @Param('id', IdValifationPipe) id: string,
     @Body() dto: TopPageModel
   ) {
 
@@ -66,13 +67,14 @@ export class TopPageController {
 
   }
 
+  @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Post()
   async find(
-    @Body() dto: FindTopPageDto
+    @Body() { firstCategory }: FindTopPageDto
   ) {
 
-    return this.topPageService.findByFilter(dto);
+    return this.topPageService.findByFilter(firstCategory);
 
   }
 

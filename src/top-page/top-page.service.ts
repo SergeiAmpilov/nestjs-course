@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TopPageDocument, TopPageModel } from './top-page.model/top-page.model';
+import { TopLevelCategory, TopPageDocument, TopPageModel } from './top-page.model/top-page.model';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 
@@ -28,8 +28,8 @@ export class TopPageService {
 		return this.topPageModel.findByIdAndUpdate(id, dto, { new: true }).exec();
 	}
 
-	async findByFilter(filter) {
-		return this.topPageModel.find(filter).exec();
+	async findByFilter(firstCategory: TopLevelCategory) {
+		return this.topPageModel.find({ firstCategory }).exec();
 	}
 
 
