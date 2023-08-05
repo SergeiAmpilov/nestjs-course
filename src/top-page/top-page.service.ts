@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { TopLevelCategory, TopPageDocument, TopPageModel } from './top-page.model/top-page.model';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
+import { CreateTopPageDto } from './dto/create-top-page.dto';
 
 @Injectable()
 export class TopPageService {
@@ -12,7 +13,7 @@ export class TopPageService {
 	) {}
 
 
-	async create(dto: TopPageModel) {
+	async create(dto: CreateTopPageDto) {
 		return this.topPageModel.create(dto);
 	}
 
@@ -24,7 +25,7 @@ export class TopPageService {
 		return this.topPageModel.findByIdAndDelete(id).exec();
 	}
 
-	async update(id: string, dto: TopPageModel) {
+	async update(id: string, dto: CreateTopPageDto) {
 		return this.topPageModel.findByIdAndUpdate(id, dto, { new: true }).exec();
 	}
 

@@ -1,10 +1,10 @@
 import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TopPageModel } from './top-page.model/top-page.model';
 import { FindTopPageDto } from './dto/find-top-page.dto';
-import { ConfigService } from '@nestjs/config';
 import { TopPageService } from './top-page.service';
 import { TOP_PAGE_NOT_FOUND_BY_ID } from './top-page.constants';
 import { IdValifationPipe } from 'src/pipes/id-validation.pipes';
+import { CreateTopPageDto } from './dto/create-top-page.dto';
 
 
 @Controller('top-page')
@@ -17,7 +17,7 @@ export class TopPageController {
   @UsePipes(new ValidationPipe())
   @Post('create')
   async create(
-    @Body() dto: TopPageModel
+    @Body() dto: CreateTopPageDto
   ) {
 
     return this.topPageService.create(dto);
@@ -56,7 +56,7 @@ export class TopPageController {
   @Patch(':id')
   async patch(
     @Param('id', IdValifationPipe) id: string,
-    @Body() dto: TopPageModel
+    @Body() dto: CreateTopPageDto
   ) {
 
     const updatedTopPage = await this.topPageService.update(id, dto);
