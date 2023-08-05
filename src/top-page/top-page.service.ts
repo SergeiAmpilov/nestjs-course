@@ -25,6 +25,10 @@ export class TopPageService {
 		return this.topPageModel.findOne({ alias }).exec();
 	}
 
+	async findByCategory(firstCategory: TopLevelCategory) {
+		return this.topPageModel.find({ firstCategory }).exec();
+	}
+
 	async delete(id: string) {
 		return this.topPageModel.findByIdAndDelete(id).exec();
 	}
@@ -32,10 +36,5 @@ export class TopPageService {
 	async update(id: string, dto: CreateTopPageDto) {
 		return this.topPageModel.findByIdAndUpdate(id, dto, { new: true }).exec();
 	}
-
-	async findByFilter(firstCategory: TopLevelCategory) {
-		return this.topPageModel.find({ firstCategory }).exec();
-	}
-
 
 }

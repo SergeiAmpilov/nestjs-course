@@ -14,7 +14,6 @@ export class TopPageController {
     private readonly topPageService: TopPageService,
     ) {}
 
-  @UsePipes(new ValidationPipe())
   @Post('create')
   async create(
     @Body() dto: CreateTopPageDto
@@ -67,7 +66,6 @@ export class TopPageController {
 
   }
 
-  @UsePipes(new ValidationPipe())
   @Patch(':id')
   async patch(
     @Param('id', IdValifationPipe) id: string,
@@ -90,7 +88,7 @@ export class TopPageController {
     @Body() { firstCategory }: FindTopPageDto
   ) {
 
-    return this.topPageService.findByFilter(firstCategory);
+    return this.topPageService.findByCategory(firstCategory);
 
   }
 
