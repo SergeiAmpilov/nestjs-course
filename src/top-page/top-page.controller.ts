@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { TopPageModel } from './top-page.model/top-page.model';
 import { FindTopPageDto } from './dto/find-top-page.dto';
 import { TopPageService } from './top-page.service';
 import { TOP_PAGE_NOT_FOUND_BY_ALIAS, TOP_PAGE_NOT_FOUND_BY_ID } from './top-page.constants';
 import { IdValifationPipe } from 'src/pipes/id-validation.pipes';
 import { CreateTopPageDto } from './dto/create-top-page.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 
 @Controller('top-page')
@@ -14,6 +15,7 @@ export class TopPageController {
     private readonly topPageService: TopPageService,
     ) {}
 
+  @UseGuards(JwtAuthGuard)
   @Post('create')
   async create(
     @Body() dto: CreateTopPageDto
@@ -23,6 +25,7 @@ export class TopPageController {
 
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async get(
     @Param('id', IdValifationPipe) id: string
@@ -53,6 +56,7 @@ export class TopPageController {
 
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(
     @Param('id', IdValifationPipe) id: string
@@ -83,7 +87,7 @@ export class TopPageController {
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
-  @Post()
+  @Post('find')
   async find(
     @Body() { firstCategory }: FindTopPageDto
   ) {

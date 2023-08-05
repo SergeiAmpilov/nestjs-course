@@ -26,7 +26,7 @@ export class TopPageService {
 	}
 
 	async findByCategory(firstCategory: TopLevelCategory) {
-		return this.topPageModel.find({ firstCategory }).exec();
+		return this.topPageModel.find({ firstCategory }, { alias: 1, title: 1, secondCategory: 1}).exec();
 	}
 
 	async delete(id: string) {
