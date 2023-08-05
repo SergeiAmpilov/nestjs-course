@@ -43,6 +43,12 @@ export class TopPageController {
     @Param('id') id: string
   ) {
 
+    const topPage = await this.topPageService.delete(id);
+
+    if (!topPage) {
+      throw new NotFoundException(TOP_PAGE_NOT_FOUND_BY_ID);
+    }
+
   }
 
   @Patch(':id')

@@ -20,5 +20,9 @@ export class TopPageService {
 		return this.topPageModel.findById(id).exec();
 	}
 
+	async delete(id: string) {
+		return this.topPageModel.findByIdAndDelete(id).exec();
+	}
+
 
 }
