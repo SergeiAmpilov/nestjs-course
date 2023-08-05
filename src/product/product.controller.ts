@@ -1,10 +1,11 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpException, HttpStatus, NotFoundException, Param, Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { ProductModel } from './product.model/product.model';
 import { FindProductDto } from './dto/find-product.dto';
 import { CreateProductDto } from './dto/create-product.dto';
 import { ProductService } from './product.service';
 import {  PRODUCT_NOT_FOUND_ERROR } from './product.constants';
 import { IdValifationPipe } from 'src/pipes/id-validation.pipes';
+import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
 @Controller('product')
 export class ProductController {
@@ -15,6 +16,7 @@ export class ProductController {
 
   }
 
+  @UseGuards(JwtAuthGuard)
   @Post('create')
   async create(
     @Body() dto: CreateProductDto
@@ -24,6 +26,7 @@ export class ProductController {
 
   }
 
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async get(
     @Param('id', IdValifationPipe) id: string
@@ -38,6 +41,7 @@ export class ProductController {
 
   }
 
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   async delete(
     @Param('id', IdValifationPipe) id: string
@@ -51,6 +55,7 @@ export class ProductController {
 
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   async patch(
     @Param('id', IdValifationPipe) id: string,
