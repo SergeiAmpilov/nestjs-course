@@ -1,4 +1,4 @@
-import { IsArray, IsEnum, IsNumber, IsString, ValidateNested } from 'class-validator';
+import { IsArray, IsEnum, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
 import { TopLevelCategory } from '../top-page.model/top-page.model';
 import { Type } from 'class-transformer';
 
@@ -44,6 +44,7 @@ export class CreateTopPageDto {
 	category: string;
 
 
+	@IsOptional()
 	@ValidateNested()
 	@Type(() => HHSalaryDto)
 	hh?: HHSalaryDto;
