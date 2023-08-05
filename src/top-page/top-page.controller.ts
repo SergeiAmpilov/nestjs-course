@@ -11,13 +11,13 @@ import { IdValifationPipe } from 'src/pipes/id-validation.pipes';
 export class TopPageController {
 
   constructor( 
-    private readonly configService: ConfigService,
     private readonly topPageService: TopPageService,
     ) {}
 
+  @UsePipes(new ValidationPipe())
   @Post('create')
   async create(
-    @Body() dto: Omit<TopPageModel, '_id'>
+    @Body() dto: TopPageModel
   ) {
 
     return this.topPageService.create(dto);
@@ -52,6 +52,7 @@ export class TopPageController {
 
   }
 
+  @UsePipes(new ValidationPipe())
   @Patch(':id')
   async patch(
     @Param('id', IdValifationPipe) id: string,
