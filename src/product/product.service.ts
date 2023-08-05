@@ -51,13 +51,22 @@ export class ProductService {
           from: 'reviewmodels',
           localField: '_id',
           foreignField: 'productId',
-          as: 'review'
+          as: 'reviews'
         }
       },
       {
         $addFields: {
-          reviewCount: { $size: '$review' },
-          reviewAvg: { $avg: '$review.rating' },
+          reviewCount: { $size: '$reviews' },
+          reviewAvg: { $avg: '$reviews.rating' },
+          reviews: {
+            $function: {
+              body: `function (reviews) { 
+                return reviews.sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)))
+              }`,
+              args: ['$reviews'],
+              lang: 'js'
+            }
+          }
         }
       },
     ]).exec() as unknown as FindProductWithReview[];
