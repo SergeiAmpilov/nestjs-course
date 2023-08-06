@@ -25,6 +25,13 @@ export class TopPageService {
 		return this.topPageModel.findOne({ alias }).exec();
 	}
 
+	async findByText(text: string) {
+		return this.topPageModel.find({ $text: {
+			$search: text,
+			$caseSensitive: false,
+		}}).exec();
+	}
+
 	async findByCategory(firstCategory: TopLevelCategory) {
 		return this.topPageModel.find({ firstCategory }, { alias: 1, title: 1, secondCategory: 1}).exec();
 	}

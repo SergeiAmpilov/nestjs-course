@@ -79,7 +79,7 @@ export class TopPageModel extends Document {
   alias: string;
 
   @Prop({
-    type: MSchema.Types.String
+    type: MSchema.Types.String,
   })
   title: string;
 
@@ -117,3 +117,5 @@ export class TopPageModel extends Document {
 
 export const TopPageSchema = SchemaFactory.createForClass(TopPageModel);
 export type TopPageDocument = HydratedDocument<TopPageModel>;
+
+TopPageSchema.index({ title: 'text', seoText: 'text'});
