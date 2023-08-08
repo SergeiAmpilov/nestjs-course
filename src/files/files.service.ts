@@ -28,7 +28,6 @@ export class FilesService {
 		}
 
 		return res;
-
 	}
 
  convertToWebP(file: Buffer): Promise<Buffer> {
