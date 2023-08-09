@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { FilesModule } from './files/files.module';
+import { SitemapModule } from './sitemap/sitemap.module';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { FilesModule } from './files/files.module';
     AuthModule, 
     TopPageModule, 
     ProductModule, 
-    ReviewModule, UsersModule, FilesModule
+    ReviewModule, UsersModule, FilesModule, SitemapModule
   ],
   controllers: [AppController],
   providers: [AppService],
