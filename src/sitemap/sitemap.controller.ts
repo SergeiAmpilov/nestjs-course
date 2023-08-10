@@ -14,7 +14,9 @@ export class SitemapController {
     private readonly topPageService: TopPageService,
     private readonly configService: ConfigService
   ) {
+
     this.domain = this.configService.get('DOMAIN') ?? '';
+    
   }
 
   @Get('xml')
