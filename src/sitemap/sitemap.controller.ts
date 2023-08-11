@@ -23,17 +23,20 @@ export class SitemapController {
   @Header('content-type', 'text/xml')
   async sitemap() {
     const formatString = 'yyyy-MM-dd\'T\'HH:mm:00.00xxx';
-    let res = [{
-      loc: this.domain,
-      lastmod: format(subDays(new Date(), 1), formatString),
-      changefreq: 'daily',
-      priority: 1
-    }, {
-      loc: `${this.domain}/courses`,
-      lastmod: format(subDays(new Date(), 1), formatString),
-      changefreq: 'daily',
-      priority: 1
-    }];
+    let res = [
+      {
+        loc: this.domain,
+        lastmod: format(subDays(new Date(), 1), formatString),
+        changefreq: 'daily',
+        priority: 1
+      }, 
+      {
+        loc: `${this.domain}/courses`,
+        lastmod: format(subDays(new Date(), 1), formatString),
+        changefreq: 'daily',
+        priority: 1
+      }
+    ];
 
     const pages = await this.topPageService.findAll();
     res = res.concat(pages.map((page) => {
