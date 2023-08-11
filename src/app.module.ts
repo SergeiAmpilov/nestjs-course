@@ -10,6 +10,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './users/users.module';
 import { FilesModule } from './files/files.module';
 import { SitemapModule } from './sitemap/sitemap.module';
+import { TelegramModule } from './telegram/telegram.module';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { SitemapModule } from './sitemap/sitemap.module';
     AuthModule, 
     TopPageModule, 
     ProductModule, 
-    ReviewModule, UsersModule, FilesModule, SitemapModule
+    ReviewModule, UsersModule, FilesModule, SitemapModule, TelegramModule
   ],
   controllers: [AppController],
   providers: [AppService],
