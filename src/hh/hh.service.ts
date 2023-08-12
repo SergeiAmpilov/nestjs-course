@@ -8,7 +8,7 @@ import { HHSalary } from 'src/top-page/top-page.model/top-page.model';
 
 @Injectable()
 export class HhService {
-  token: string;
+  private token: string;
 
   constructor(
     private readonly configService: ConfigService,
@@ -32,7 +32,7 @@ export class HhService {
       }));
       
       return this.parseData(data);
-      
+
     } catch (e) {
       Logger.error(e);
     }
