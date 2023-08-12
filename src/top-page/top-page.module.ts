@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TopPageModel, TopPageSchema } from './top-page.model/top-page.model';
 import { TopPageService } from './top-page.service';
+import { HhModule } from 'src/hh/hh.module';
 
 @Module({
   imports: [
@@ -13,10 +14,10 @@ import { TopPageService } from './top-page.service';
         name: TopPageModel.name,
         schema: TopPageSchema
       }
-    ])
+    ]),
+    HhModule
   ],
   controllers: [TopPageController],
   providers: [TopPageService],
-  exports: [TopPageService]
 })
 export class TopPageModule {}
