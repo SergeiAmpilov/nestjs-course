@@ -5,10 +5,7 @@ import { HttpModule } from '@nestjs/axios';
 
 @Module({
   providers: [HhService],
-  imports: [
-    ConfigModule,
-    HttpModule
-  ],
-  exports: [HhService]
+  imports: [ConfigModule, HttpModule],
+  exports: [HhService],
 })
 export class HhModule {}

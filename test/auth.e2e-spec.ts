@@ -6,16 +6,19 @@ import { CreateReviewDto } from 'src/review/dto/create-review.dto';
 import { Types, disconnect } from 'mongoose';
 import { REVIEW_NOT_FOUND } from '../src/review/review.constants';
 import { AuthDto } from 'src/auth/dto/auth.dto';
-import { USER_NOT_FOUND_ERROR, WRONG_PASSWORD_ERROR } from 'src/auth/auth.constants';
+import {
+  USER_NOT_FOUND_ERROR,
+  WRONG_PASSWORD_ERROR,
+} from 'src/auth/auth.constants';
 
 const loginDto: AuthDto = {
   login: 'ampilov@list.ru',
-  password: '123456'
-}
+  password: '123456',
+};
 
 describe('AuthController (e2e)', () => {
   let app: INestApplication;
-  
+
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
@@ -23,34 +26,30 @@ describe('AuthController (e2e)', () => {
 
     app = moduleFixture.createNestApplication();
     await app.init();
-
-    
   });
 
-  
   it('/auth/login (POST) - success', async () => {
     return request(app.getHttpServer())
       .post('/auth/login/')
       .send(loginDto)
       .expect(200)
       .then(({ body }: request.Response) => {
-        const token = body.access_token
+        const token = body.access_token;
         expect(token).toBeDefined();
       });
   });
-
 
   it('/auth/login (POST) - fail email', async () => {
     return request(app.getHttpServer())
       .post('/auth/login/')
       .send({
         ...loginDto,
-        login:'some_random@login.com'
+        login: 'some_random@login.com',
       })
       .expect(401, {
         statusCode: 401,
         error: 'Unauthorized',
-        message: USER_NOT_FOUND_ERROR
+        message: USER_NOT_FOUND_ERROR,
       });
   });
 
@@ -59,18 +58,16 @@ describe('AuthController (e2e)', () => {
       .post('/auth/login/')
       .send({
         ...loginDto,
-        password:'some_random_password123'
+        password: 'some_random_password123',
       })
       .expect(401, {
         statusCode: 401,
         error: 'Unauthorized',
-        message: WRONG_PASSWORD_ERROR
+        message: WRONG_PASSWORD_ERROR,
       });
   });
 
-
-
   afterAll(() => {
-    disconnect()
+    disconnect();
   });
 });

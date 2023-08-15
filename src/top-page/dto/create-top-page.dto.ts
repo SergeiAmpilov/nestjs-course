@@ -1,77 +1,75 @@
-import { IsArray, IsDate, IsEnum, IsNumber, IsOptional, IsString, ValidateNested } from 'class-validator';
+import {
+  IsArray,
+  IsDate,
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+} from 'class-validator';
 import { TopLevelCategory } from '../top-page.model/top-page.model';
 import { Type } from 'class-transformer';
 
 export class HHSalaryDto {
+  @IsNumber()
+  count: number;
 
-	@IsNumber()
-	count: number;
+  @IsNumber()
+  juniorSalary: number;
 
-	@IsNumber()
-	juniorSalary: number;
+  @IsNumber()
+  middleSalary: number;
 
-	@IsNumber()
-	middleSalary: number;
+  @IsNumber()
+  seniorSalary: number;
 
-	@IsNumber()
-	seniorSalary: number;
-
-	@IsDate()
-	updatedAt: Date;
+  @IsDate()
+  updatedAt: Date;
 }
 
 export class TopPageAdvantageDto {
+  @IsString()
+  title: string;
 
-	@IsString()
-	title: string;
-
-	@IsString()
-	descriptiuon: string;
+  @IsString()
+  descriptiuon: string;
 }
 
 export class CreateTopPageDto {
+  @IsEnum(TopLevelCategory)
+  firstCategory: TopLevelCategory;
 
-	@IsEnum(TopLevelCategory)
-	firstCategory: TopLevelCategory;
+  @IsString()
+  secondCategory: string;
 
-	@IsString()
-	secondCategory: string;
+  @IsString()
+  alias: string;
 
-	@IsString()
-	alias: string;
+  @IsString()
+  title: string;
 
-	@IsString()
-	title: string;
+  @IsString()
+  category: string;
 
-	@IsString()
-	category: string;
+  @IsOptional()
+  @ValidateNested()
+  @Type(() => HHSalaryDto)
+  hh?: HHSalaryDto;
 
+  @IsArray()
+  @ValidateNested()
+  @Type(() => TopPageAdvantageDto)
+  advantages: TopPageAdvantageDto[];
 
-	@IsOptional()
-	@ValidateNested()
-	@Type(() => HHSalaryDto)
-	hh?: HHSalaryDto;
+  @IsString()
+  seoText: string;
 
+  @IsString()
+  tagsTitle: string;
 
-
-	@IsArray()
-	@ValidateNested()
-	@Type(() => TopPageAdvantageDto)
-	advantages: TopPageAdvantageDto[];
-
-	@IsString()
-	seoText: string;
-
-	@IsString()
-	tagsTitle: string;
-
-
-	@IsArray()
-	@IsString({
-		each: true
-	})
-	tags: string[];
+  @IsArray()
+  @IsString({
+    each: true,
+  })
+  tags: string[];
 }
-
-
-

@@ -9,14 +9,14 @@ import { Post, PostSchema } from './models/post.model';
     MongooseModule.forFeature([
       {
         name: User.name,
-        schema:UserSchema
+        schema: UserSchema,
       },
       {
         name: Post.name,
-        schema: PostSchema
+        schema: PostSchema,
       },
-    ])
+    ]),
   ],
-  providers: [UsersService]
+  providers: [UsersService],
 })
 export class UsersModule {}

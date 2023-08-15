@@ -14,18 +14,18 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     MongooseModule.forFeature([
       {
         name: UserModel.name,
-        schema: UserSchema
+        schema: UserSchema,
       },
     ]),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: getJwtConfig
+      useFactory: getJwtConfig,
     }),
     PassportModule,
-    ConfigModule
+    ConfigModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy]
+  providers: [AuthService, JwtStrategy],
 })
 export class AuthModule {}

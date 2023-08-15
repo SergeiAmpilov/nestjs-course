@@ -1,7 +1,9 @@
-import { ConfigService } from "@nestjs/config";
-import { ITelegramOptions } from "./telegram.interface";
+import { ConfigService } from '@nestjs/config';
+import { ITelegramOptions } from './telegram.interface';
 
-export const getTelegramConfig = (configService: ConfigService): ITelegramOptions => {
+export const getTelegramConfig = (
+  configService: ConfigService,
+): ITelegramOptions => {
   const token = configService.get('TELEGRAM_TOKEN');
   const chatId = configService.get('CHAT_ID');
 

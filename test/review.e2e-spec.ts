@@ -11,16 +11,15 @@ const productId = new Types.ObjectId().toHexString();
 
 const loginDto: AuthDto = {
   login: 'ampilov@list.ru',
-  password: '123456'
-}
-
+  password: '123456',
+};
 
 const testDto: CreateReviewDto = {
   name: 'Тест',
   title: 'Заголовок',
   description: 'Тестовое описание',
   rating: 5,
-}
+};
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
@@ -36,8 +35,8 @@ describe('AppController (e2e)', () => {
     await app.init();
 
     const { body } = await request(app.getHttpServer())
-                        .post('/auth/login')
-                        .send(loginDto);
+      .post('/auth/login')
+      .send(loginDto);
 
     token = body.access_token;
   });
@@ -50,7 +49,7 @@ describe('AppController (e2e)', () => {
       .then(({ body }: request.Response) => {
         createdId = body._id;
         expect(createdId).toBeDefined();
-      });      
+      });
   });
 
   it('/review/create (POST) - fail', async () => {
@@ -58,37 +57,37 @@ describe('AppController (e2e)', () => {
       .post('/review/create/')
       .send({
         ...testDto,
-        rating: -1
+        rating: -1,
       })
       .expect(400)
       .then(({ body }: request.Response) => {
-        console.log(body)
+        console.log(body);
       });
   });
 
   it('/review/byProduct/:productId (GET) - success', async () => {
     return request(app.getHttpServer())
-            .get('/review/byProduct/' + productId)
-            .expect(200)
-            .then(({ body }: request.Response) => {
-              expect(body.length).toBeGreaterThanOrEqual(0);
-            });
+      .get('/review/byProduct/' + productId)
+      .expect(200)
+      .then(({ body }: request.Response) => {
+        expect(body.length).toBeGreaterThanOrEqual(0);
+      });
   });
 
   it('/review/byProduct/:productId (GET) - fail', async () => {
     return request(app.getHttpServer())
-            .get('/review/byProduct/' + new Types.ObjectId().toHexString())
-            .expect(200)
-            .then(({ body }: request.Response) => {
-              expect(body.length).toBe(0);
-            });
+      .get('/review/byProduct/' + new Types.ObjectId().toHexString())
+      .expect(200)
+      .then(({ body }: request.Response) => {
+        expect(body.length).toBe(0);
+      });
   });
 
   it('/review/:id (DELETE) - success', () => {
     return request(app.getHttpServer())
       .delete('/review/' + createdId)
       .set('Authorization', `Bearer ${token}`)
-      .expect(200)
+      .expect(200);
   });
 
   it('/review/:id (DELETE) - fail', () => {
@@ -98,10 +97,10 @@ describe('AppController (e2e)', () => {
       .expect(404, {
         statusCode: 404,
         message: REVIEW_NOT_FOUND,
-      })
+      });
   });
 
   afterAll(() => {
-    disconnect()
+    disconnect();
   });
 });

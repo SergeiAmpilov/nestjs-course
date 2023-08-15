@@ -6,10 +6,10 @@ import { CreateReviewDto } from './dto/create-review.dto';
 
 @Injectable()
 export class ReviewService {
-
   constructor(
-    @InjectModel(ReviewModel.name) private readonly reviewModel: Model<ReviewDocument>
-  ) { }
+    @InjectModel(ReviewModel.name)
+    private readonly reviewModel: Model<ReviewDocument>,
+  ) {}
 
   async create(dto: CreateReviewDto): Promise<ReviewDocument> {
     // const demp =  this.reviewModel.create(dto);
@@ -19,18 +19,20 @@ export class ReviewService {
   async delete(id: string): Promise<ReviewDocument | null> {
     return this.reviewModel.findByIdAndDelete(id).exec();
   }
-  
 
   async findByProductId(productId: string): Promise<ReviewDocument[]> {
-    return this.reviewModel.find({
-      productId: new Types.ObjectId(productId)
-    }).exec();
+    return this.reviewModel
+      .find({
+        productId: new Types.ObjectId(productId),
+      })
+      .exec();
   }
 
   async deleteByProductId(productId: string) {
-    return this.reviewModel.deleteMany({
-      productId: new Types.ObjectId(productId)
-    }).exec();
+    return this.reviewModel
+      .deleteMany({
+        productId: new Types.ObjectId(productId),
+      })
+      .exec();
   }
-
 }

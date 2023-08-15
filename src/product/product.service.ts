@@ -6,14 +6,18 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { FindProductDto } from './dto/find-product.dto';
 import { ReviewModel } from 'src/review/review.model/review.model';
 
-export type FindProductWithReview = ProductModel & { review: ReviewModel[], reviewCount: number, reviewAvg: number };
+export type FindProductWithReview = ProductModel & {
+  review: ReviewModel[];
+  reviewCount: number;
+  reviewAvg: number;
+};
 
 @Injectable()
 export class ProductService {
   constructor(
-    @InjectModel(ProductModel.name) private readonly productModel: Model<ProductDocument>,
-  ) {  }
-
+    @InjectModel(ProductModel.name)
+    private readonly productModel: Model<ProductDocument>,
+  ) {}
 
   async createProduct(dto: CreateProductDto): Promise<ProductDocument> {
     return this.productModel.create(dto);
@@ -32,43 +36,45 @@ export class ProductService {
   }
 
   async findWithReviews(dto: FindProductDto): Promise<FindProductWithReview[]> {
-    return this.productModel.aggregate([
-      {
-        $match: {
-          categories: dto.category,
-        }
-      },
-      {
-        $sort: {
-          _id: 1,
-        }
-      },
-      {
-        $limit: dto.limit
-      },
-      {
-        $lookup: {
-          from: 'reviewmodels',
-          localField: '_id',
-          foreignField: 'productId',
-          as: 'reviews'
-        }
-      },
-      {
-        $addFields: {
-          reviewCount: { $size: '$reviews' },
-          reviewAvg: { $avg: '$reviews.rating' },
-          reviews: {
-            $function: {
-              body: `function (reviews) { 
+    return this.productModel
+      .aggregate([
+        {
+          $match: {
+            categories: dto.category,
+          },
+        },
+        {
+          $sort: {
+            _id: 1,
+          },
+        },
+        {
+          $limit: dto.limit,
+        },
+        {
+          $lookup: {
+            from: 'reviewmodels',
+            localField: '_id',
+            foreignField: 'productId',
+            as: 'reviews',
+          },
+        },
+        {
+          $addFields: {
+            reviewCount: { $size: '$reviews' },
+            reviewAvg: { $avg: '$reviews.rating' },
+            reviews: {
+              $function: {
+                body: `function (reviews) { 
                 return reviews.sort((a, b) => (new Date(b.createdAt) - new Date(a.createdAt)))
               }`,
-              args: ['$reviews'],
-              lang: 'js'
-            }
-          }
-        }
-      },
-    ]).exec() as unknown as FindProductWithReview[];
+                args: ['$reviews'],
+                lang: 'js',
+              },
+            },
+          },
+        },
+      ])
+      .exec() as unknown as FindProductWithReview[];
   }
 }

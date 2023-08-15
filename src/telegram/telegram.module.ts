@@ -7,18 +7,19 @@ import { TELEGRAM_MODULE_OPTIONS } from './telegram.constants';
 @Module({})
 export class TelegramModule {
   static forRootAsync(options: ItelegramModuleAsyncOptions): DynamicModule {
-    
     const asyncOptions = this.createAsyncOptionsProvider(options);
 
     return {
       module: TelegramModule,
       imports: options.imports,
       providers: [TelegramService, asyncOptions],
-      exports: [TelegramService]
+      exports: [TelegramService],
     };
   }
 
-  private static createAsyncOptionsProvider(options: ItelegramModuleAsyncOptions): Provider {
+  private static createAsyncOptionsProvider(
+    options: ItelegramModuleAsyncOptions,
+  ): Provider {
     return {
       provide: TELEGRAM_MODULE_OPTIONS,
       useFactory: async (...args: any[]) => {

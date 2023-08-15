@@ -1,18 +1,15 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, HydratedDocument, Schema as MSchema } from "mongoose";
-
-
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, HydratedDocument, Schema as MSchema } from 'mongoose';
 
 export enum TopLevelCategory {
   Courses,
   Services,
   Books,
-  Products
+  Products,
 }
 
 @Schema()
 export class TopPageAdvantage {
-
   @Prop({
     type: MSchema.Types.String,
   })
@@ -24,11 +21,11 @@ export class TopPageAdvantage {
   descriptiuon: string;
 }
 
-export const TopPageAdvantageSchema = SchemaFactory.createForClass(TopPageAdvantage);
+export const TopPageAdvantageSchema =
+  SchemaFactory.createForClass(TopPageAdvantage);
 
 @Schema()
 export class HHSalary {
-
   @Prop({
     type: MSchema.Types.Number,
   })
@@ -52,9 +49,6 @@ export class HHSalary {
 
 export const HHSalarySchema = SchemaFactory.createForClass(HHSalary);
 
-
-
-
 @Schema({
   timestamps: true,
 })
@@ -68,7 +62,7 @@ export class TopPageModel extends Document {
   firstCategory: TopLevelCategory;
 
   @Prop({
-    type: MSchema.Types.String
+    type: MSchema.Types.String,
   })
   secondCategory: string;
 
@@ -84,15 +78,14 @@ export class TopPageModel extends Document {
   title: string;
 
   @Prop({
-    type: MSchema.Types.String
+    type: MSchema.Types.String,
   })
   category: string;
 
   @Prop({
-    type: HHSalarySchema
+    type: HHSalarySchema,
   })
   hh?: HHSalary;
-
 
   @Prop({
     type: [TopPageAdvantageSchema],
@@ -100,17 +93,17 @@ export class TopPageModel extends Document {
   advantages: TopPageAdvantage[];
 
   @Prop({
-    type: MSchema.Types.String
+    type: MSchema.Types.String,
   })
   seoText: string;
 
   @Prop({
-    type: MSchema.Types.String
+    type: MSchema.Types.String,
   })
   tagsTitle: string;
 
   @Prop({
-    type: [MSchema.Types.String]
+    type: [MSchema.Types.String],
   })
   tags: string[];
 }
@@ -118,4 +111,4 @@ export class TopPageModel extends Document {
 export const TopPageSchema = SchemaFactory.createForClass(TopPageModel);
 export type TopPageDocument = HydratedDocument<TopPageModel>;
 
-TopPageSchema.index({ title: 'text', seoText: 'text'});
+TopPageSchema.index({ title: 'text', seoText: 'text' });

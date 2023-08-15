@@ -1,9 +1,8 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document, HydratedDocument, Schema as MSchema } from "mongoose";
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document, HydratedDocument, Schema as MSchema } from 'mongoose';
 
 @Schema()
 export class ProductCharacteristic {
-
   @Prop()
   name: string;
 
@@ -11,15 +10,14 @@ export class ProductCharacteristic {
   value: string;
 }
 
-export const ProductCharacteristicSchema = SchemaFactory.createForClass(ProductCharacteristic);
-
-
+export const ProductCharacteristicSchema = SchemaFactory.createForClass(
+  ProductCharacteristic,
+);
 
 @Schema({
   timestamps: true,
 })
 export class ProductModel extends Document {
-
   // _id: string;
 
   @Prop({
@@ -51,7 +49,7 @@ export class ProductModel extends Document {
     type: MSchema.Types.Number,
   })
   calculatedRating: number;
-  
+
   @Prop({
     type: MSchema.Types.String,
   })
@@ -81,8 +79,7 @@ export class ProductModel extends Document {
     type: [ProductCharacteristicSchema],
     _id: false,
   })
-  characteristics: ProductCharacteristic[]
-
+  characteristics: ProductCharacteristic[];
 }
 
 export const ProductSchema = SchemaFactory.createForClass(ProductModel);

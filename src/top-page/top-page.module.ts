@@ -12,13 +12,13 @@ import { HhModule } from 'src/hh/hh.module';
     MongooseModule.forFeature([
       {
         name: TopPageModel.name,
-        schema: TopPageSchema
-      }
+        schema: TopPageSchema,
+      },
     ]),
-    HhModule
+    HhModule,
   ],
   controllers: [TopPageController],
   providers: [TopPageService],
-  exports: [TopPageService]
+  exports: [TopPageService],
 })
 export class TopPageModule {}
